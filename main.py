@@ -37,14 +37,11 @@ def main():
         listIngredients()
     elif sys.argv[1] == 'cocktails':
         listCocktails()
-    # elif sys.argv[1] == 'search':
-    #     searchDrinks(sys.argv[2])
+    elif sys.argv[1] == 'search':
+        searchDrinks(sys.argv[2])
     elif (sys.argv[1] != None):
             if (sys.argv[1] in drinks.drinks != None):
-                drink = sys.argv[1]
-                print(drink)
-                for ingredient in drinks.drinks[drink]:
-                    print("     " + ingredient)
+                printDrink(sys.argv[1])
             else:
                 print("Enter a valid drink:")
                 listCocktails()
@@ -89,7 +86,17 @@ def listIngredients():
             print("     " + ingredient)
 
 # function to search for all drinks with an ingredient
-# def searchDrinks(ingredient):
+def searchDrinks(searchIngredient):
+    for drink in drinks.drinks:
+        for ingredient in drinks.drinks[drink]:
+            if ingredient == searchIngredient:
+                printDrink(drink)
+
+# function to print the name of the drink followed by its ingredients
+def printDrink(drink):
+    print(drink)
+    for ingredient in drinks.drinks[drink]:
+        print("     " + ingredient)
 
 
 # function to remove an ingredient from a drink
