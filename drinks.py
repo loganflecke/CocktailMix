@@ -1,11 +1,11 @@
 import json
 
-def addDrink(ingredient, name):
-    json.load(name:ingredient)
+def addDrink(name, ingredient):
+    json.dump(name, ingredient)
 
 
+drinks = {
+    'mojito' : ['white rum', 'mint', 'club soda'],
+    'margherita' : ['tequila', 'triple sec', 'lime juice']
 
-
-drinks = [
-
-]
+    }
