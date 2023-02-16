@@ -1,7 +1,5 @@
 
-import json
 import sys
-
 import drinks
 
 # import drinks
@@ -62,27 +60,25 @@ def help():
 def add(name):
     print('List each ingredient for ' + name + ' one at a time.')
     print('If you are done, enter "done".')
-    ingredient = input('Next ingredient: ')
-    listCocktails()
-
-    while True:
-        ingredient = input('Next ingredient: ')
-        if (ingredient == 'done'):
+    ingredients = [0 for i in range(10)]
+    i = 0
+    while (i < 11):
+        print(i)
+        print(ingredients[i])
+        ingredients[i] = input('Next ingredient: ')
+        if (ingredients[i] == "done"):
+            ingredients[i] = 0
             break
-        # validate that ingredient is in list
-        # if (ingredient is not in allIngredients):
-        #     print('Enter a valid ingredient or cancel and enter "ingredients" to view them all.')
-        #     break
-        # add ingredient to drink in json
-        addToList(name, ingredient)
+        print(ingredients[i])
+        i += 1
+    tempDict = {name : ingredients}
+    print(tempDict)
+    addToList(tempDict)
 
 # function to add element directly to drinklist
-def addToList(name, ingredient):
-    element = {name:ingredient}
-    drinks.drinklist.update(element)
+def addToList(tempDict):
+    drinks.drinklist = (drinks.drinklist | tempDict)
     print(drinks.drinklist)
-# drinklist[name] = drinklist[name] + ingredient
-
 
 # function to view the entire list of cocktails
 def listCocktails():
