@@ -1,8 +1,5 @@
-
+import json
 import sys
-import drinks
-
-# import drinks
 
 allIngredients = {
     'alcohol': [
@@ -20,29 +17,28 @@ allIngredients = {
     'others': [
         'ice', 'whipped cream', 'creamer', 'mint']
 }
-
 def main():
-# list of all optional ingredients
-# list of all the cocktails and their ingredients
+    drinkList = json.load(open("drinks.json"))
+
 
     if len(sys.argv) < 2:
         help()
     elif sys.argv[1] == 'add':
-        add(sys.argv[2])
+        add(sys.argv[2], drinkList)
     # elif sys.argv[1] == 'remove':
     #     removeIngredient(sys.argv[2], sys.argv[3])
     elif sys.argv[1] == 'ingredients':
         listIngredients()
     elif sys.argv[1] == 'cocktails':
-        listCocktails()
+        listCocktails(drinkList)
     elif sys.argv[1] == 'search':
-        searchDrinks(sys.argv[2])
+        searchDrinks(sys.argv[2], drinkList)
     elif (sys.argv[1] != None):
-            if (sys.argv[1] in drinks.drinklist != None):
-                printDrink(sys.argv[1])
+            if (sys.argv[1] in drinkList != None):
+                printDrink(sys.argv[1], drinkList)
             else:
                 print("Enter a valid drink:")
-                listCocktails()
+                listCocktails(drinkList)
     else:
         help()
 
@@ -57,32 +53,33 @@ def help():
 
 
 # function to add a drink to the list
-def add(name):
+def add(name, drinkList):
     print('List each ingredient for ' + name + ' one at a time.')
     print('If you are done, enter "done".')
-    ingredients = [0 for i in range(10)]
+    tempDict = {name : ""}
+
+    ingredients = []
     i = 0
-    while (i < 11):
-        print(i)
-        print(ingredients[i])
-        ingredients[i] = input('Next ingredient: ')
-        if (ingredients[i] == "done"):
-            ingredients[i] = 0
+    while (i < 10):
+        ingredient = input('Next ingredient: ')
+        if (ingredient != "done"):
+            ingredients.append(ingredient)
+        else:
             break
-        print(ingredients[i])
         i += 1
-    tempDict = {name : ingredients}
-    print(tempDict)
-    addToList(tempDict)
+
+    tempDict[name] = ingredients
+    addToList(tempDict, drinkList)
 
 # function to add element directly to drinklist
-def addToList(tempDict):
-    drinks.drinklist = (drinks.drinklist | tempDict)
-    print(drinks.drinklist)
+def addToList(tempDict, drinkList):
+    drinkList = drinkList | tempDict
+    with open("drinks.json", "w") as jsonFile:
+        json.dump(drinkList, jsonFile, indent=4)
 
 # function to view the entire list of cocktails
-def listCocktails():
-    for name in drinks.drinklist:
+def listCocktails(drinkList):
+    for name in drinkList:
         print(name)
 
 # function to view the entire list of ingredients
@@ -93,22 +90,21 @@ def listIngredients():
             print("     " + ingredient)
 
 # function to search for all drinks with an ingredient
-def searchDrinks(searchIngredient):
-    for drink in drinks.drinklist:
-        for ingredient in drinks.drinklist[drink]:
+def searchDrinks(searchIngredient, drinkList):
+    for drink in drinkList:
+        for ingredient in drinkList[drink]:
             if ingredient == searchIngredient:
-                printDrink(drink)
+                printDrink(drink, drinkList)
 
 # function to print the name of the drink followed by its ingredients
-def printDrink(drink):
+def printDrink(drink, drinkList):
     print(drink)
-    for ingredient in drinks.drinklist[drink]:
+    for ingredient in drinkList[drink]:
         print("     " + ingredient)
 
 
 # function to remove an ingredient from a drink
 # def removeIngredient(drink, ingredient):
-
 
 
 if __name__ == '__main__':
