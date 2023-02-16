@@ -40,7 +40,7 @@ def main():
     elif sys.argv[1] == 'search':
         searchDrinks(sys.argv[2])
     elif (sys.argv[1] != None):
-            if (sys.argv[1] in drinks.drinks != None):
+            if (sys.argv[1] in drinks.drinklist != None):
                 printDrink(sys.argv[1])
             else:
                 print("Enter a valid drink:")
@@ -49,33 +49,44 @@ def main():
         help()
 
 def help():
-    print('Type "cocktails" to view a list of all the cocktails available.')
-    print('Type "search" followed by an ingredient to search for all the cocktails containing '
+    print('cocktails           View a list of all the cocktails available.')
+    print('search ingredient   Search for all the cocktails containing '
           'your desired ingredient.')
-    print('Type "ingredients" to view a list of all the ingredients included.')
-    print('Type "add" followed by the name to add a cocktail to the list. You will be prompted to '
+    print('ingredients         View a list of all the ingredients.')
+    print('add cocktail        Add a cocktail to the list. You will be prompted to '
           'add the ingredients.')
-    print("If you know the name of the drink, enter it and see the ingredients.")
+    print("[name of drink]     See the ingredients in [name of drink].")
 
 
 # function to add a drink to the list
 def add(name):
     print('List each ingredient for ' + name + ' one at a time.')
     print('If you are done, enter "done".')
-    ingredient = ''
+    ingredient = input('Next ingredient: ')
+    listCocktails()
 
-    while (ingredient != 'done'):
+    while True:
         ingredient = input('Next ingredient: ')
+        if (ingredient == 'done'):
+            break
         # validate that ingredient is in list
         # if (ingredient is not in allIngredients):
         #     print('Enter a valid ingredient or cancel and enter "ingredients" to view them all.')
         #     break
         # add ingredient to drink in json
-        drinks.addDrink(ingredient, name)
+        addToList(name, ingredient)
+
+# function to add element directly to drinklist
+def addToList(name, ingredient):
+    element = {name:ingredient}
+    drinks.drinklist.update(element)
+    print(drinks.drinklist)
+# drinklist[name] = drinklist[name] + ingredient
+
 
 # function to view the entire list of cocktails
 def listCocktails():
-    for name in drinks.drinks:
+    for name in drinks.drinklist:
         print(name)
 
 # function to view the entire list of ingredients
@@ -87,15 +98,15 @@ def listIngredients():
 
 # function to search for all drinks with an ingredient
 def searchDrinks(searchIngredient):
-    for drink in drinks.drinks:
-        for ingredient in drinks.drinks[drink]:
+    for drink in drinks.drinklist:
+        for ingredient in drinks.drinklist[drink]:
             if ingredient == searchIngredient:
                 printDrink(drink)
 
 # function to print the name of the drink followed by its ingredients
 def printDrink(drink):
     print(drink)
-    for ingredient in drinks.drinks[drink]:
+    for ingredient in drinks.drinklist[drink]:
         print("     " + ingredient)
 
 
