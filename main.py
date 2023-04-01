@@ -17,18 +17,24 @@ allIngredients = {
     'others': [
         'ice', 'whipped cream', 'creamer', 'mint']
 }
-def main():
-    # load the drinks.json database into drinkList
-    drinkList = json.load(open("drinks.json"))
 
+# Define the name of the JSON file
+json_file = "drinks.json"
+
+# Load the existing data from the JSON file
+with open(json_file, "r") as f:
+    drinkList = json.load(f)
+
+
+def main():
 
     if len(sys.argv) < 2:
         print(open("banner.txt").read())
         help()
     elif sys.argv[1] == 'add':
         add(sys.argv[2], drinkList)
-    # elif sys.argv[1] == 'removeIngredient':
-    #     removeIngredient(sys.argv[2], sys.argv[3], drinkList)
+    elif sys.argv[1] == 'removeIngredient':
+        removeIngredient(sys.argv[2], sys.argv[3])
     elif sys.argv[1] == 'removeDrink':
        removeDrink(sys.argv[2],drinkList)
     elif sys.argv[1] == 'ingredients':
@@ -79,8 +85,7 @@ def add(name, drinkList):
 # function to add element directly to drinks.json
 def addToList(tempDict, drinkList):
     drinkList = drinkList | tempDict
-    with open("drinks.json", "w") as jsonFile:
-        json.dump(drinkList, jsonFile, indent=4)
+    save_data(drinkList)
 
 # function to view the entire list of cocktails
 def listCocktails(drinkList):
@@ -111,12 +116,24 @@ def printDrink(drink, drinkList):
 # function to remove an ingredient from a drink
 def removeDrink(drink, drinkList):
     del drinkList[drink]
-    with open("drinks.json", "w") as jsonFile:
-        json.dump(drinkList, jsonFile, indent=4)
+    save_data(drinkList)
 
-# function to remove a drink from drinks.json
-# def removeIngredient(drink):
-#    drinkList.pop()
+# Define a function to remove an ingredient from a cocktail in the JSON data
+def removeIngredient(name, ingredient):
+    if name in drinkList:
+        if ingredient in drinkList[name]:
+            drinkList[name].remove(ingredient)
+            save_data(drinkList)
+        else:
+            print(f"Ingredient '{ingredient}' not found in cocktail '{name}'.")
+    else:
+        print(f"Cocktail '{name}' not found.")
+
+# Define a function to save the updated JSON data to the file
+def save_data(drinkList):
+    with open(json_file, "w") as f:
+        json.dump(drinkList, f, indent=4)
+
 
 if __name__ == '__main__':
     main()
