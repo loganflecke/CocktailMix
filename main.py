@@ -13,20 +13,24 @@ allIngredients = {
     'mixers': [
         'orange juice', 'apple juice', 'lime juice', 'lemon juice', 'pineapple juice', 'grapefruit juice',
         '', 'cherries', 'orange', 'pineapple', 'lime', 'lemon',
-        '', 'Coca-Cola', 'root beer', 'ginger-ale', 'ginger beer', 'Sprite', 'lemonade', 'club soda'],
+        '', 'Coca-Cola', 'root beer', 'ginger-ale', 'ginger beer', 'Sprite', 'lemonade', 'club soda', 'simple syrup'],
     'others': [
         'ice', 'whipped cream', 'creamer', 'mint']
 }
 def main():
+    # load the drinks.json database into drinkList
     drinkList = json.load(open("drinks.json"))
 
 
     if len(sys.argv) < 2:
+        print(open("banner.txt").read())
         help()
     elif sys.argv[1] == 'add':
         add(sys.argv[2], drinkList)
-    # elif sys.argv[1] == 'remove':
-    #     removeIngredient(sys.argv[2], sys.argv[3])
+    # elif sys.argv[1] == 'removeIngredient':
+    #     removeIngredient(sys.argv[2], sys.argv[3], drinkList)
+    elif sys.argv[1] == 'removeDrink':
+       removeDrink(sys.argv[2],drinkList)
     elif sys.argv[1] == 'ingredients':
         listIngredients()
     elif sys.argv[1] == 'cocktails':
@@ -43,16 +47,17 @@ def main():
         help()
 
 def help():
-    print('cocktails           View a list of all the cocktails available.')
-    print('search ingredient   Search for all the cocktails containing '
+    print('cocktails                View a list of all the cocktails available.')
+    print('search ingredient        Search for all the cocktails containing '
           'your desired ingredient.')
-    print('ingredients         View a list of all the ingredients.')
-    print('add cocktail        Add a cocktail to the list. You will be prompted to '
+    print('ingredients              View a list of all the ingredients.')
+    print('add cocktail             Add a cocktail to the list. You will be prompted to '
           'add the ingredients.')
-    print("[name of drink]     See the ingredients in [name of drink].")
+    print("removeDrink [name]       Remove a cocktail from the list.")
+    print("[name of drink]          See the ingredients in [name of drink].")
 
 
-# function to add a drink to the list
+# function to add a drink to the drinkList
 def add(name, drinkList):
     print('List each ingredient for ' + name + ' one at a time.')
     print('If you are done, enter "done".')
@@ -71,7 +76,7 @@ def add(name, drinkList):
     tempDict[name] = ingredients
     addToList(tempDict, drinkList)
 
-# function to add element directly to drinklist
+# function to add element directly to drinks.json
 def addToList(tempDict, drinkList):
     drinkList = drinkList | tempDict
     with open("drinks.json", "w") as jsonFile:
@@ -104,8 +109,14 @@ def printDrink(drink, drinkList):
 
 
 # function to remove an ingredient from a drink
-# def removeIngredient(drink, ingredient):
+def removeDrink(drink, drinkList):
+    del drinkList[drink]
+    with open("drinks.json", "w") as jsonFile:
+        json.dump(drinkList, jsonFile, indent=4)
 
+# function to remove a drink from drinks.json
+# def removeIngredient(drink):
+#    drinkList.pop()
 
 if __name__ == '__main__':
     main()

@@ -1,7 +1,8 @@
 {
     "margherita": [
         "tequila",
-        "triple sec"
+        "triple sec",
+        "lime juice"
     ],
     "mojito": [
         "white rum",
@@ -9,4 +10,10 @@
         "lime juice",
         "Club Soda"
     ],
+    "whiskey sour": [
+        "whiskey",
+        "lemon juice",
+        "simple syrup",
+        "orange"
+    ]
 }
