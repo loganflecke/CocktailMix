@@ -1,0 +1,16 @@
+{
+    "alcohol": [
+            "whiskey", "bourbon", "scotch", "irish whiskey", "cinnamon whiskey",
+        "", "rum", "spiced rum", "white rum", "gold rum", "black rum", "coconut rum", "blueberry lemonade rum",
+            "flavored rum",
+        "", "vodka", "vanilla vodka",
+        "", "tequila", "gold tequila",
+        "", "coffee liquer", "amaretto liquer", "orange liquer", "moonshine", "flavored moonshine", "cognac",
+        "", "red wine", "rose"],
+    "mixers": [
+        "orange juice", "apple juice", "lime juice", "lemon juice", "pineapple juice", "grapefruit juice",
+        "", "cherries", "orange", "pineapple", "lime", "lemon",
+        "", "Coca-Cola", "root beer", "ginger-ale", "ginger beer", "Sprite", "lemonade", "club soda", "simple syrup"],
+    "others": [
+        "ice", "whipped cream", "creamer", "mint"]
+}

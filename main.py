@@ -1,30 +1,15 @@
 import json
 import sys
 
-allIngredients = {
-    'alcohol': [
-            'whiskey', 'bourbon', 'scotch', 'irish whiskey', 'cinnamon whiskey',
-        '', 'rum', 'spiced rum', 'white rum', 'gold rum', 'black rum', 'coconut rum', 'blueberry lemonade rum',
-            'flavored rum',
-        '', 'vodka', 'vanilla vodka',
-        '', 'tequila', 'gold tequila',
-        '', 'coffee liquer', 'amaretto liquer', 'orange liquer', 'moonshine', 'flavored moonshine', 'cognac',
-        '', 'red wine', 'rose'],
-    'mixers': [
-        'orange juice', 'apple juice', 'lime juice', 'lemon juice', 'pineapple juice', 'grapefruit juice',
-        '', 'cherries', 'orange', 'pineapple', 'lime', 'lemon',
-        '', 'Coca-Cola', 'root beer', 'ginger-ale', 'ginger beer', 'Sprite', 'lemonade', 'club soda', 'simple syrup'],
-    'others': [
-        'ice', 'whipped cream', 'creamer', 'mint']
-}
-
 # Define the name of the JSON file
-json_file = "drinks.json"
+drink_file = "drinks.json"
+ingredients_file = "ingredients.json"
 
 # Load the existing data from the JSON file
-with open(json_file, "r") as f:
+with open(drink_file, "r") as f:
     drinkList = json.load(f)
-
+with open(ingredients_file, "r") as f:
+    allIngredients = json.load(f)
 
 def main():
 
@@ -67,19 +52,24 @@ def help():
 def add(name, drinkList):
     print('List each ingredient for ' + name + ' one at a time.')
     print('If you are done, enter "done".')
-    tempDict = {name : ""}
 
-    ingredients = []
-    i = 0
-    while (i < 10):
-        ingredient = input('Next ingredient: ')
-        if (ingredient != "done"):
-            ingredients.append(ingredient)
+
+    # examples array contains all the examples currently in concept
+    if name in drinkList:
+        ingredients = [drinkList[name]]
+    else:
+        ingredients = []
+
+    while True:
+        example = input('Next example: ')
+        if (name != "done"):
+                ingredients.append(example)
         else:
             break
-        i += 1
 
-    tempDict[name] = ingredients
+    # add examples to tempDict
+    tempDict = {name: ingredients}
+
     addToList(tempDict, drinkList)
 
 # function to add element directly to drinks.json
