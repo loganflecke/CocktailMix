@@ -64,10 +64,5 @@ Configure you ingredients library by editing the 'ingredients.json' file. Catego
 
 Found a bug or want to contribute? Feel free to open an issue or submit a pull request. Your contributions are highly welcome!
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 Cheers to your mixology adventures with CocktailMix! 🥂
