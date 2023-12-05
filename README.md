@@ -44,7 +44,7 @@ python cocktailmix.py cocktails
 
 List all the saved drinks with their names and ingredients.
 
-### 5. View the ingredients of a cocktail
+### 4. View the ingredients of a cocktail
 
 ```bash
 python cocktailmix.py <cocktail>
