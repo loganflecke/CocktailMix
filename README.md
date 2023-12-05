@@ -16,7 +16,6 @@ Make sure you have Python 3 installed on your system. Clone the repository and i
 ```bash
 git clone https://github.com/your-username/CocktailMix.git
 cd CocktailMix
-pip install -r requirements.txt
 ```
 
 ## Usage
@@ -40,30 +39,26 @@ Follow the prompts to choose ingredients and provide a name for your custom drin
 ### 3. View Saved Drinks
 
 ```bash
-python cocktailmix.py drinks
+python cocktailmix.py cocktails
 ```
 
 List all the saved drinks with their names and ingredients.
 
-### 4. Share a Recipe
-
-```bash
-python cocktailmix.py share <drink_name>
-```
-
-Replace `<drink_name>` with the name of the drink you want to share. This command generates a shareable link with the recipe.
-
 ### 5. Add New Ingredient
 
+*** UNDER DEVELOPMENT ***
+
 ```bash
-python cocktailmix.py add-ingredient
+python cocktailmix.py <cocktail>
 ```
 
-Follow the prompts to add a new ingredient to your library.
+View the ingredients in your cocktail or use this to determine if the cocktail exists.
 
 ## Configuration
 
-Configure your drink library by editing the `drinks.json` file. Customize the ingredients, drinks, and their respective recipes.
+Configure your drink library by editing the `drinks.json` file. Customize the drinks and their respective recipes.
+
+Configure you ingredients library by editing the 'ingredients.json' file. Categorize your ingredients by type and add, modify, or remove them.
 
 ## Contributing
 
